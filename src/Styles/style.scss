@@ -1,0 +1,191 @@
+body {
+	margin: 0;
+	font-family: arial;
+
+	.main-modal-container {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		.main-modal {
+			max-width: 1000px;
+			border-radius: 3px;
+			box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+			min-height: 50px;
+			max-height: 85vh;
+			padding: 10px;
+			box-sizing: border-box;
+
+			.section-splitter {
+				display: flex;
+				align-items: flex-end;
+				justify-content: space-between;
+
+				> div {
+					margin: 0 10px;
+				}
+			}
+
+			.header {
+				margin: 10px 0;
+				h1 {
+					font-weight: normal;
+					margin: 0;
+				}
+			}
+
+			.map {
+				background-color: #FFF;
+				width: 500px;
+				height: 500px;
+				position: relative;
+				border-radius: 3px;
+				box-shadow: 0 1px 5px rgba(0,0,0,0.3);
+
+				.statistics {
+					position: absolute;
+					top: 5px;
+					right: 5px;
+					box-shadow: 0 1px 5px rgba(0,0,0,0.3);
+					width: 150px;
+					height: 50px;
+					background-color: #FFF;
+					z-index: 1;
+					border-radius: 3px;
+					padding: 10px;
+					box-sizing: border-box;
+					display: flex;
+					align-items: center;
+					justify-content: space-around;
+
+					.signal-container {
+						width: 40px;
+						height: 20px;
+						display: flex;
+						align-items: flex-end;
+						justify-content: space-between;
+
+						> div {
+							background-color: #AAA;
+							width: 8px;
+							height: 75%;
+							border-radius: 2px;
+
+							&:first-child {
+								height: 25%;
+							}
+
+							&:nth-child(2) {
+								height: 50%;
+							}
+
+							&:last-child {
+								height: 100%;
+							}
+
+							&.full {
+								background-color: #CC3333;
+							}
+						}
+					}
+				}
+
+				.map-marker {
+					background-color: #FFF;
+					width: 20px;
+					height: 20px;
+					padding: 5px;
+					box-sizing: border-box;
+					box-shadow: 0 1px 5px rgba(0,0,0,0.3);
+					border-radius: 100%;
+					border: 3px solid #F00;
+				}
+			}
+
+			.player-controls {
+				background-color: #EEE;
+				width: 500px;
+				height: 70px;
+				margin-top: 10px;
+				box-shadow: 0 1px 5px rgba(0,0,0,0.3);
+				border-radius: 3px;
+
+				.controls {
+					display: flex;
+					justify-content: space-around;
+					height: 100%;
+					align-items: center;
+					font-size: 30px;
+					color: #99AACC;
+					text-shadow: 0 1px 5px rgba(0,0,0,0.3);
+					
+					i {
+						transition: all 0.3s ease-in-out;
+						cursor: pointer;
+
+						&:hover {
+							text-shadow: 0 1px 10px rgba(0,0,0,0.3);
+						}
+					}
+				}
+			}
+
+			.time-range-selectors {
+				display: flex;
+				justify-content: space-between;
+
+				.from-container, .to-container {
+					display: inline-block;
+
+					label {
+						margin: 0 5px;
+					}
+
+					input {
+						border: 1px solid #CCC;
+						padding: 3px 10px;
+						border-radius: 3px;
+						font-family: arial;
+					}
+				}
+			}
+
+			.signal-graph, .speed-graph, .acceleration-graph {
+				width: 400px;
+				height: 175px;
+				background-color: #FFF;
+				border-radius: 3px;
+				box-shadow: 0 1px 5px rgba(0,0,0,0.3);
+				margin: 8px 0;
+				position: relative;
+
+				.graph-title {
+					position: absolute;
+					top: 5px;
+					right: 10px;
+					font-size: 14px;
+				}
+
+				.tooltip-container {
+					background-color: #FFF;
+					padding: 5px;
+					border-radius: 3px;
+					box-shadow: 0 1px 5px rgba(0,0,0,0.3);
+
+					.tooltip {
+						font-size: 13px;
+
+						span {
+							display: block;
+						}
+					}
+				}
+			}
+		}
+	}
+}
