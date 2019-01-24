@@ -43,11 +43,13 @@ class App extends Component {
   }
 
   changeStartTime(e) {
-    this.setState({ startTime: new Date(e.target.value).getTime()}, () => {this.getData()});
+    if(new Date(e.target.value).getTime() < this.state.endTime)
+      this.setState({ startTime: new Date(e.target.value).getTime()}, () => {this.getData()});
   }
 
   changeEndTime(e) {
-    this.setState({ endTime: new Date(e.target.value).getTime()}, () => {this.getData()});
+    if(new Date(e.target.value).getTime() > this.state.startTime)
+      this.setState({ endTime: new Date(e.target.value).getTime()}, () => {this.getData()});
   }
 
   getData() {

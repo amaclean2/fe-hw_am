@@ -21,6 +21,8 @@ class Home extends Component {
 		this.toggleRunAnimation=this.toggleRunAnimation.bind(this);
 		this.updatePositionIndex=this.updatePositionIndex.bind(this);
 		this.setPlaySpeed=this.setPlaySpeed.bind(this);
+		this.changeStartTime=this.changeStartTime.bind(this);
+		this.changeEndTime=this.changeEndTime.bind(this);
 	}
 
 	componentDidMount() {
@@ -60,16 +62,16 @@ class Home extends Component {
 			accelerationInterval = data.length > 100 ? Math.round(data.length / 100) : 1;
 
 		data.forEach( (point, i) => {
-			signalData.push({time: point.timestamp, Signal: point.rssi});
-			speedData.push({time: point.timestamp, Speed: point.speed});
+			signalData.push({time: point.gpsEpochMillis, Signal: point.rssi});
+			speedData.push({time: point.gpsEpochMillis, Speed: point.speed});
 
-			let accCalc = i !== 0 ? (point.speed - prevSpeed) / ((point.timestamp - prevTime) / 3600000) : 0;
+			let accCalc = i !== 0 ? (point.speed - prevSpeed) / ((point.gpsEpochMillis - prevTime) / 3600000) : 0;
 
-			accelerationData.push({time: point.timestamp, Acceleration: accCalc });
+			accelerationData.push({time: point.gpsEpochMillis, Acceleration: accCalc });
 			path.push({ lat: point.lat, lng: point.long });
 
 			prevSpeed = point.speed;
-			prevTime = point.timestamp;
+			prevTime = point.gpsEpochMillis;
 		});
 		this.setState({ speedData, signalData, accelerationData, path, graphable: true });
 	}
@@ -135,7 +137,6 @@ class Home extends Component {
 	updatePositionIndex() {
 		if(this.state.runAnimation) {
 			setTimeout(() => {
-				console.log(this.state.positionIndex, this.state.speedData);
 				if(this.state.positionIndex < this.state.speedData.length - 1) {
 					this.setState({ positionIndex: this.state.positionIndex + 1 });
 					this.updatePositionIndex();
@@ -161,6 +162,16 @@ class Home extends Component {
 		} else {
 			return 0;
 		}
+	}
+
+	changeStartTime(e) {
+		this.setState({ positionIndex: 0 });
+		this.props.changeStartTime(e);
+	}
+
+	changeEndTime(e) {
+		this.setState({ positionIndex: 0 });
+		this.props.changeEndTime(e);
 	}
 
   	render() {
@@ -199,11 +210,11 @@ class Home extends Component {
 	        			<div className="time-range-selectors">
 		        			<div className="from-container">
 			        			<label htmlFor="startDate">From</label>
-			        			<input type="date" id="startDate" onChange={this.props.changeStartTime} defaultValue={startDate} />
+			        			<input type="date" id="startDate" onChange={this.changeStartTime} defaultValue={startDate} />
 		        			</div>
 		        			<div className="to-container">
 			        			<label htmlFor="endDate">To</label>
-			        			<input type="date" id="endDate" onChange={this.props.changeEndTime} defaultValue={endDate}/>
+			        			<input type="date" id="endDate" onChange={this.changeEndTime} defaultValue={endDate}/>
 			        		</div>
 			        	</div>
 	        			<div className="signal-graph">

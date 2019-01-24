@@ -60,6 +60,7 @@ class LineGraph extends Component {
 	generateLine() {
 		return (<ReferenceLine
 					x={this.state.data[this.state.positionIndex].time}
+					strokeWidth={1}
 					stroke="#333" />);
 	}
 
